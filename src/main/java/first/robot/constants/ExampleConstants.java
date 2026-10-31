@@ -7,4 +7,7 @@ package first.robot.constants;
 import first.robot.mechanisms.ExampleMechanism;
 
 /** Constants for the {@link ExampleMechanism}. */
-public final class ExampleConstants {}
+public final class ExampleConstants {
+    public static final int MotorID = 2;
+    public static final double MotorSpeed =0.5;
+}

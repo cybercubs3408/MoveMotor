@@ -7,6 +7,7 @@ package first.robot.mechanisms;
 import org.wpilib.command3.Command;
 import org.wpilib.command3.Mechanism;
 import org.wpilib.command3.Trigger;
+import first.robot.constants.ExampleConstants;
 
 /** An example class demonstrating basic use of mechanisms and commands. */
 public class ExampleMechanism implements Mechanism {
