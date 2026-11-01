@@ -5,15 +5,30 @@
 package first.robot.mechanisms;
 
 import org.wpilib.command3.Command;
+import org.wpilib.command3.Coroutine;
 import org.wpilib.command3.Mechanism;
 import org.wpilib.command3.Trigger;
 import first.robot.constants.ExampleConstants;
 
+import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.hardware.*;
+import com.ctre.phoenix6.CANBus;
+
 /** An example class demonstrating basic use of mechanisms and commands. */
 public class IntakeMotor implements Mechanism {
   public final Trigger exampleCondition = new Trigger(() -> false);
-  private final ExampleSmartMotorController motor =
-      new ExampleSmartMotorController(IntakeConstants.WRIST_MOTOR_ID);
+
+  CANBus systemBus = new CANBus("1"); //canbus the motor is on
+  private final TalonFX motor =
+      new TalonFX(ExampleConstants.MotorID, systemBus); //initilizes motor and assigns the motor ID
+  
+  private void StopMotor (){
+    motor.setVoltage(0);
+  }
+
+  public Command StopIntake () {
+    return runRepeatedly(this::StopMotor).named("Stop Intake"); //when called, will run at every scheduler call
+  }
 
   /**
    * An example command that requires this mechanism. Only one command that requires this mechanism
@@ -23,15 +38,12 @@ public class IntakeMotor implements Mechanism {
    *
    * @return An example command.
    */
-  public Command exampleCommand() {
+  public Command MoveIntakeForward() {
     return run(coroutine -> {
-          int runCount = 0;
-          while (true) {
-            runCount++;
-            System.out.println("Example command run #" + runCount);
-            coroutine.yield();
-          }
+          motor.setVoltage(ExampleConstants.MotorSpeed);
+
+          coroutine.park();
         })
-        .named("Example Command");
+        .named("Intake.Roller.Intake");
   }
 }

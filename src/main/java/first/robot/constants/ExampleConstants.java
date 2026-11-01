@@ -5,6 +5,7 @@
 package first.robot.constants;
 
 import first.robot.mechanisms.ExampleMechanism;
+import com.ctre.phoenix6.CANBus;
 
 /** Constants for the {@link ExampleMechanism}. */
 public final class ExampleConstants {
