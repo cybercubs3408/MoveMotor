@@ -8,11 +8,15 @@ import org.wpilib.command3.Command;
 import org.wpilib.command3.Coroutine;
 import org.wpilib.command3.Mechanism;
 import org.wpilib.command3.Trigger;
+import org.wpilib.math.system.DCMotor;
+
 import first.robot.constants.ExampleConstants;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.hardware.*;
+import com.ctre.phoenix6.sim.TalonFXSimState;
 import com.ctre.phoenix6.CANBus;
+import org.wpilib.simulation.DCMotorSim;
 
 /** An example class demonstrating basic use of mechanisms and commands. */
 public class IntakeMotor implements Mechanism {
@@ -21,6 +25,8 @@ public class IntakeMotor implements Mechanism {
   CANBus systemBus = new CANBus("1"); //canbus the motor is on
   private final TalonFX motor =
       new TalonFX(ExampleConstants.MotorID, systemBus); //initilizes motor and assigns the motor ID
+    
+  private final TalonFXSimState motorsim = motor.getSimState(); //for simulation
   
   private void StopMotor (){
     motor.setVoltage(0);
@@ -40,10 +46,17 @@ public class IntakeMotor implements Mechanism {
    */
   public Command MoveIntakeForward() {
     return run(coroutine -> {
-          motor.setVoltage(ExampleConstants.MotorSpeed);
+          motor.setVoltage(ExampleConstants.MotorVoltage);
 
           coroutine.park();
         })
-        .named("Intake.Roller.Intake");
+        .named("Intake.Forward");
   }
+
+
+  private final DCMotorSim intakeSim = new DCMotorSim(
+      DCMotor.getKrakenX60(1), 
+      1.0,  
+      0.025 
+  );
 }

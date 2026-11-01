@@ -10,5 +10,5 @@ import com.ctre.phoenix6.CANBus;
 /** Constants for the {@link ExampleMechanism}. */
 public final class ExampleConstants {
     public static final int MotorID = 2;
-    public static final double MotorSpeed =0.5;
+    public static final double MotorVoltage =0.5;
 }

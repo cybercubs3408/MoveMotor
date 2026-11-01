@@ -9,9 +9,11 @@ import org.wpilib.command3.button.CommandGamepad;
 import org.wpilib.framework.OpModeRobot;
 import first.robot.constants.DriverConstants;
 import first.robot.mechanisms.ExampleMechanism;
+import first.robot.mechanisms.IntakeMotor;
 
 public class Robot extends OpModeRobot {
   final ExampleMechanism exampleMechanism = new ExampleMechanism();
+  final IntakeMotor IntakeMotor = new IntakeMotor();
   final CommandGamepad exampleController =
       new CommandGamepad(DriverConstants.DRIVER_CONTROLLER_PORT);
 
